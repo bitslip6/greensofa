@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#271c52">
+  <meta name="description" content="Checkerboard Chase player lobby">
+  <title>Checkerboard Chase — Player Lobby</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="games/lobby.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="sky-decor sky-decor--one" aria-hidden="true">★</div>
+  <div class="sky-decor sky-decor--two" aria-hidden="true">✦</div>
+  <div class="sky-decor sky-decor--three" aria-hidden="true">★</div>
+
+  <header class="site-header">
+    <a class="brand" href="#" aria-label="Checkerboard Chase home">
+      <span class="brand__star" aria-hidden="true">★</span>
+      <span>
+        <strong>Checkerboard</strong>
+        <span>Chase</span>
+      </span>
+    </a>
+
+    <div id="connectionStatus" class="connection-status connection-status--connecting" role="status" aria-live="polite">
+      <span class="connection-status__dot" aria-hidden="true"></span>
+      <span id="connectionStatusText">Connecting…</span>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero" aria-labelledby="pageTitle">
+      <div>
+        <p class="eyebrow"><span aria-hidden="true">✦</span> Ready, set, chase!</p>
+        <h1 id="pageTitle">Player Lobby</h1>
+        <p>Meet your rivals, plan your next move, and get ready to rule the board.</p>
+      </div>
+      <div class="hero__badge" aria-hidden="true">
+        <span>★</span>
+      </div>
+    </section>
+
+    <section id="lobby" class="lobby" aria-label="Player lobby" aria-busy="true">
+      <aside class="panel players-panel" aria-labelledby="playersTitle">
+        <div class="panel__header">
+          <div>
+            <p class="panel__kicker">In the lobby</p>
+            <h2 id="playersTitle">Players</h2>
+          </div>
+          <span id="playerCount" class="count-badge" aria-label="0 players">0</span>
+        </div>
+
+        <ul id="playerList" class="player-list" aria-live="polite">
+          <li class="empty-state">
+            <span class="empty-state__icon" aria-hidden="true">☆</span>
+            <span>Waiting for players…</span>
+          </li>
+        </ul>
+      </aside>
+
+      <section class="panel game-panel" aria-labelledby="gameTitle">
+        <div class="panel__header"><h2 id="gameTitle">Games</h2></div>
+        <div class="game-controls">
+          <label for="gameSelect">Choose a game</label>
+          <select id="gameSelect" disabled><option value="tic-tac-toe">Tic Tac Toe</option></select>
+          <button id="createGameButton" type="button" disabled>Create match</button>
+          <button id="leaveGameButton" type="button" disabled>Leave match</button>
+          <p id="gameStatus" role="status">Register to play.</p>
+          <ul id="matchList" aria-label="Available matches"></ul>
+        </div>
+        <iframe id="gameFrame" title="Tic Tac Toe game" src="games/tic-tac-toe.html" hidden></iframe>
+      </section>
+
+      <section class="panel chat-panel" aria-labelledby="chatTitle">
+        <div class="panel__header chat-panel__header">
+          <div>
+            <p class="panel__kicker">Public room</p>
+            <h2 id="chatTitle"><span class="room-hash" aria-hidden="true">#</span> general</h2>
+          </div>
+          <span class="room-pill">Everyone</span>
+        </div>
+
+        <div id="messageList" class="message-list" role="log" aria-live="polite" aria-relevant="additions">
+          <div class="welcome-message">
+            <span class="welcome-message__star" aria-hidden="true">★</span>
+            <div>
+              <strong>Welcome to the lobby!</strong>
+              <p>Be kind, have fun, and watch those tiles.</p>
+            </div>
+          </div>
+        </div>
+
+        <form id="messageForm" class="message-form" autocomplete="off">
+          <label class="sr-only" for="messageInput">Message general</label>
+          <input id="messageInput" name="message" type="text" maxlength="500" placeholder="Message #general" disabled>
+          <button id="sendButton" class="send-button" type="submit" disabled>
+            <span>Send</span>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3.4 20.4 17.8-8a.45.45 0 0 0 0-.8l-17.8-8a.44.44 0 0 0-.61.5l1.35 5.48a.45.45 0 0 0 .39.34l9.65.91-9.65 1.25a.45.45 0 0 0-.38.34L2.8 19.9a.44.44 0 0 0 .61.5Z"/></svg>
+          </button>
+        </form>
+      </section>
+    </section>
+
+    <details class="debug-panel">
+      <summary>
+        <span><span class="debug-panel__icon" aria-hidden="true">›_</span> Connection debug log</span>
+        <button id="clearLogsButton" class="clear-logs" type="button">Clear</button>
+      </summary>
+      <div class="debug-panel__body">
+        <p class="debug-panel__endpoint">Endpoint: <code id="debugEndpoint">Resolving from page host…</code></p>
+        <ol id="debugLog" class="debug-log" aria-label="WebSocket debug messages"></ol>
+      </div>
+    </details>
+  </main>
+
+  <footer class="site-footer">
+    <span>Checkerboard Chase</span>
+    <span aria-hidden="true">•</span>
+    <span>Play fair. Chase fast.</span>
+  </footer>
+
+  <div id="usernameModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+    <div class="modal__backdrop"></div>
+    <div class="modal__card">
+      <div class="modal__flag" aria-hidden="true">
+        <span>★</span>
+      </div>
+      <p class="eyebrow">Welcome, challenger!</p>
+      <h2 id="modalTitle">Choose your player name</h2>
+      <p id="modalDescription">Pick a name that other players will recognize in the lobby.</p>
+
+      <form id="usernameForm" novalidate>
+        <label for="usernameInput">Player name</label>
+        <div id="usernameField" class="input-shell">
+          <span class="input-shell__icon" aria-hidden="true">★</span>
+          <input id="usernameInput" name="username" type="text" minlength="2" maxlength="20" pattern="[A-Za-z0-9_\-]+" placeholder="StarChaser" autocomplete="nickname" autocapitalize="none" spellcheck="false" aria-describedby="usernameHint usernameError">
+          <span id="usernameSpinner" class="spinner" aria-hidden="true" hidden></span>
+        </div>
+        <p id="usernameHint" class="field-hint">2–20 characters. Letters, numbers, _ and - only.</p>
+        <p id="usernameError" class="field-error" role="alert"></p>
+        <button id="joinButton" class="join-button" type="submit" disabled>
+          <span id="joinButtonText">Connecting…</span>
+          <span aria-hidden="true">→</span>
+        </button>
+      </form>
+
+      <p class="modal__connection"><span id="modalStatusDot" class="mini-dot"></span><span id="modalStatus">Connecting to the lobby server…</span></p>
+
+      <details id="connectionDiagnostics" class="connection-diagnostics" open>
+        <summary>
+          <span>Connection diagnostics</span>
+          <span id="diagnosticSocketBadge" class="diagnostic-badge">STARTING</span>
+        </summary>
+        <div class="connection-diagnostics__body">
+          <dl class="diagnostic-grid">
+            <div><dt>WebSocket</dt><dd><code id="diagnosticEndpoint">Resolving…</code></dd></div>
+            <div><dt>Page</dt><dd><code id="diagnosticPage">Resolving…</code></dd></div>
+            <div><dt>Socket state</dt><dd id="diagnosticSocketState">Not created</dd></div>
+            <div><dt>Browser network</dt><dd id="diagnosticNetworkState">Checking…</dd></div>
+            <div><dt>Last event</dt><dd id="diagnosticLastEvent">Client starting</dd></div>
+          </dl>
+          <p class="diagnostic-hint">On mobile, code 1006 usually means the host, port, firewall, or plain-WS connection could not be reached.</p>
+          <ol id="modalDebugLog" class="modal-debug-log" aria-label="Recent connection events"></ol>
+          <button id="copyDiagnosticsButton" class="copy-diagnostics" type="button">Copy diagnostics</button>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div id="toastRegion" class="toast-region" aria-live="assertive" aria-atomic="true"></div>
+</body>
+</html>

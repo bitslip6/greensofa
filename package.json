@@ -1,0 +1,18 @@
+{
+  "name": "checkerboard-chase",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Checkerboard Chase lobby and deterministic mesh game-state experiments",
+  "scripts": {
+    "test": "node --test mesh/tests/unit/*.test.js",
+    "test:unit": "node --test mesh/tests/unit/*.test.js",
+    "test:property": "node --test mesh/tests/unit/property.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "fast-check": "^4.3.0"
+  }
+}

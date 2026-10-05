@@ -1,0 +1,10 @@
+.lobby { grid-template-columns: minmax(150px, .6fr) minmax(280px, 1.2fr) minmax(280px, 1fr); }
+.game-controls { padding: 16px; }
+.game-controls label { display: block; margin-bottom: 6px; }
+.game-controls select, .game-controls button { font: inherit; padding: 8px; margin: 0 4px 6px 0; border: 1px solid #d4c8ed; border-radius: 8px; background: #fff; }
+.game-controls button:enabled { cursor: pointer; }
+.game-controls button:disabled { opacity: .5; }
+#matchList { list-style: none; padding: 0; }
+#gameFrame { width: 100%; height: 390px; border: 0; }
+@media (max-width: 1000px) { .lobby { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .players-panel { grid-column: 1 / -1; } }
+@media (max-width: 700px) { .lobby { grid-template-columns: 1fr; } .players-panel { grid-column: auto; } }

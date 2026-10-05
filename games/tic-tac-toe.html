@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tic Tac Toe — example game</title>
+  <style>
+    body { margin: 0; padding: 16px; color: #302654; font: 16px system-ui, sans-serif; text-align: center; }
+    h1 { font-size: 22px; margin: 0 0 10px; }
+    #board { display: grid; grid-template-columns: repeat(3, 80px); gap: 6px; justify-content: center; }
+    button { width: 80px; height: 80px; font: bold 36px system-ui; border: 2px solid #d4c8ed; border-radius: 8px; background: #f7efff; color: #4c329c; cursor: pointer; }
+    button:disabled { cursor: default; }
+  </style>
+  <script src="tic-tac-toe.js" defer></script>
+</head>
+<body>
+  <h1>Tic Tac Toe</h1>
+  <p id="status" role="status">Join a match from the lobby to play.</p>
+  <!--
+    The complete board is already in the HTML. JavaScript only updates these
+    buttons; it does not create any markup.
+
+    The server numbers squares from 0 to 8, left to right, top to bottom:
+
+      0  1  2
+      3  4  5
+      6  7  8
+
+    Start disabled until the lobby tells us it is this player's turn.
+  -->
+  <div id="board" aria-label="Tic Tac Toe board">
+    <button type="button" data-cell="0" aria-label="Square 1, empty" disabled></button>
+    <button type="button" data-cell="1" aria-label="Square 2, empty" disabled></button>
+    <button type="button" data-cell="2" aria-label="Square 3, empty" disabled></button>
+
+    <button type="button" data-cell="3" aria-label="Square 4, empty" disabled></button>
+    <button type="button" data-cell="4" aria-label="Square 5, empty" disabled></button>
+    <button type="button" data-cell="5" aria-label="Square 6, empty" disabled></button>
+
+    <button type="button" data-cell="6" aria-label="Square 7, empty" disabled></button>
+    <button type="button" data-cell="7" aria-label="Square 8, empty" disabled></button>
+    <button type="button" data-cell="8" aria-label="Square 9, empty" disabled></button>
+  </div>
+</body>
+</html>
