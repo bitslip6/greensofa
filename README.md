@@ -1,4 +1,4 @@
-# Checkerboard Chase Lobby PoC
+# Checkerboard Chase Lobby PoC v1
 
 A dependency-free HTML/CSS/ES6 player lobby with an OpenSwoole 26.2 and SQLite WebSocket server.
 
