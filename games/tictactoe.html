@@ -3,7 +3,7 @@
 <head>
 <title>Tic-Tac-Toe v2</title>
 <style>
-table, th, td {
+table, button, td {
   border:5px solid black;
     border-collapse: collapse;
   background-color:lightblue;
@@ -18,29 +18,28 @@ color: white;
 
 
 </style>
-<script src="tic-tac-toe.js">
-</script>
+<script src="tic-tac-toe.js" defer></script>
 </head>
 <body>
 
 <h1>Tic-Tac-Toe</h1>
 <p id="status" role="status">Status message</p>
 
-<table style="width:100%; height: 250px; text-align:center;">
+<table style="widbutton:100%; height: 250px; text-align:center;">
   <tr id="row1">
-    <th id="cell1" data-cell="1">&#128938</th>
-    <th id="cell2" data-cell="2">&#128938</th>
-    <th id="cell3" data-cell="3">&#128938</th>
+    <button id="cell1" data-cell="1" disabled>&#128938</button>
+    <button id="cell2" data-cell="2" disabled>&#128938</button>
+    <button id="cell3" data-cell="3" disabled>&#128938</button>
   </tr>
   <tr id="row2">
-    <th id="cell4" data-cell="4">&#128902</th>
-    <th id="cell5" data-cell="5">&#128902</th>
-    <th id="cell6" data-cell="6">&#128902</th>
+    <button id="cell4" data-cell="4" disabled>&#128902</button>
+    <button id="cell5" data-cell="5" disabled>&#128902</button>
+    <button id="cell6" data-cell="6" disabled>&#128902</button>
   </tr>
   <tr id="row3">
-    <th id="cell7" data-cell="7">&#128938</th>
-    <th id="cell8" data-cell="8">&#128938</th>
-    <th id="cell9" data-cell="9">&#128938</th>
+    <button id="cell7" data-cell="7" disabled>&#128938</button>
+    <button id="cell8" data-cell="8" disabled>&#128938</button>
+    <button id="cell9" data-cell="9" disabled>&#128938</button>
   </tr>
 </table>
 
