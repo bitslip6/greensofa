@@ -52,6 +52,8 @@ let gameState = {
 
 // Prevent a second click while we are waiting for the first move's response.
 let movePending = false;
+let confettiPlayedForMatch = null;
+let confettiLoading = false;
 
 
 // SETUP: Register handlers once. They run later when browser events occur.
@@ -201,6 +203,9 @@ function renderStatusMessage() {
   if (match.status === 'finished') {
     if (match.winner === null) {
       statusMessage.textContent = 'Draw!';
+    } else if (match.winner === gameState.symbol) {
+      statusMessage.textContent = 'You win!';
+      playWinnerConfetti(match);
     } else {
       statusMessage.textContent = match.winner + ' wins!';
     }
@@ -287,6 +292,63 @@ function renderBoard() {
   }
 }
 
+
+function playWinnerConfetti(match) {
+  if (!match || confettiPlayedForMatch === match.id || confettiLoading) {
+    return;
+  }
+
+  confettiPlayedForMatch = match.id;
+  confettiLoading = true;
+  loadP5ForConfetti()
+    .then(runWinConfettiScript)
+    .catch((error) => console.error('Could not play winner confetti.', error))
+    .finally(() => {
+      confettiLoading = false;
+    });
+}
+
+function loadP5ForConfetti() {
+  if (window.p5) {
+    return Promise.resolve();
+  }
+
+  return new Promise((resolve, reject) => {
+    const existing = document.querySelector('script[data-confetti-p5]');
+    if (existing) {
+      existing.addEventListener('load', resolve, { once: true });
+      existing.addEventListener('error', reject, { once: true });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js';
+    script.dataset.confettiP5 = 'true';
+    script.addEventListener('load', resolve, { once: true });
+    script.addEventListener('error', reject, { once: true });
+    document.head.append(script);
+  });
+}
+
+function runWinConfettiScript() {
+  if (document.querySelector('script[data-confetti-running]')) {
+    return;
+  }
+
+  const template = document.querySelector('#win_confetti');
+  if (!template) {
+    return;
+  }
+
+  const script = document.createElement('script');
+  script.dataset.confettiRunning = 'true';
+  script.textContent = template.textContent;
+  document.body.append(script);
+
+  if (window.p5) {
+    new window.p5();
+  }
+}
 
 // Begin listening. The initial HTML already shows an empty, disabled board.
 startGame();

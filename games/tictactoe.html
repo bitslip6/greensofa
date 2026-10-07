@@ -41,17 +41,37 @@ canvas {
 
 
 </style>
-<<<<<<< HEAD
 <script src="tic-tac-toe.js" defer></script>
-=======
-<script src="tic-tac-toe.js">
 
-git add
+</head>
+<body>
+
+<h1>Tic-Tac-Toe</h1>
+<p id="status" role="status">Status message</p>
+
+<table id="board" style="widbutton:100%; height: 250px; text-align:center;">
+  <tr id="row1">
+    <td><button id="cell1" data-cell="0" aria-label="Square 1, empty" disabled>&#128938</button></td>
+    <td><button id="cell2" data-cell="1" aria-label="Square 2, empty" disabled>&#128938</button></td>
+    <td><button id="cell3" data-cell="2" aria-label="Square 3, empty" disabled>&#128938</button></td>
+  </tr>
+  <tr id="row2">
+    <td><button id="cell4" data-cell="3" aria-label="Square 4, empty" disabled>&#128902</button></td>
+    <td><button id="cell5" data-cell="4" aria-label="Square 5, empty" disabled>&#128902</button></td>
+    <td><button id="cell6" data-cell="5" aria-label="Square 6, empty" disabled>&#128902</button></td>
+  </tr>
+  <tr id="row3">
+    <td><button id="cell7" data-cell="6" aria-label="Square 7, empty" disabled>&#128938</button></td>
+    <td><button id="cell8" data-cell="7" aria-label="Square 8, empty" disabled>&#128938</button></td>
+    <td><button id="cell9" data-cell="8" aria-label="Square 9, empty" disabled>&#128938</button></td>
+  </tr>
+</table>
+
+
+<script id="win_confetti" type="text/plain">
 let nouvelle,
   ancienne,
   pression;
-
-
 
 let themeCouleur = [
   '#f44336', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5',
@@ -73,7 +93,6 @@ class Particule {
     this.priseVitesse = 0.05;
   }
   reinit() {
-
     this.position = this.parent.position.copy();
     this.position.y = random(-20, -100);
     this.position.x = random(0, width);
@@ -82,12 +101,9 @@ class Particule {
     this.taille = round(random(5, 15));
     this.moitie = this.taille / 2;
     this.couleur = color(random(themeCouleur));
-
   }
   dessiner() {
-
     this.etape = 0.5 + Math.sin(this.velocite.y * 20) * 0.5;
-
     this.prise = this.priseFacteur + Math.cos(this.priseAngle) * this.multFacteur;
     this.priseAngle += this.priseVitesse;
     translate(this.position.x, this.position.y);
@@ -123,7 +139,6 @@ class Particule {
   rendu() {
     this.integration();
     this.dessiner();
-
   }
 }
 class SystemeDeParticules {
@@ -132,7 +147,6 @@ class SystemeDeParticules {
     this.nombreMax = nombreMax;
     this.gravite = createVector(0, 0.1);
     this.friction = 0.98;
-    // le tableau
     this.particules = [];
     for (var i = 0; i < this.nombreMax; i++) {
       this.particules.push(new Particule(this));
@@ -156,6 +170,7 @@ function setup() {
   ancienne = createVector(0, 0);
   nouvelle = createVector(0, 0);
   confettis = new SystemeDeParticules(500, createVector(width / 2, -20));
+}
 
 function draw() {
   background(color("#111"));
@@ -172,7 +187,6 @@ function windowResized() {
 }
 
 function mousePressed() {
-  next = 0;
   pression = true;
 }
 
@@ -181,34 +195,8 @@ function mouseReleased() {
   confettis.gravite.y = 0.1;
   confettis.gravite.x = 0;
 }
-
 </script>
 
-
->>>>>>> d8e6961 (this is with confetti)
-</head>
-<body>
-
-<h1>Tic-Tac-Toe</h1>
-<p id="status" role="status">Status message</p>
-
-<table style="widbutton:100%; height: 250px; text-align:center;">
-  <tr id="row1">
-    <button id="cell1" data-cell="1" disabled>&#128938</button>
-    <button id="cell2" data-cell="2" disabled>&#128938</button>
-    <button id="cell3" data-cell="3" disabled>&#128938</button>
-  </tr>
-  <tr id="row2">
-    <button id="cell4" data-cell="4" disabled>&#128902</button>
-    <button id="cell5" data-cell="5" disabled>&#128902</button>
-    <button id="cell6" data-cell="6" disabled>&#128902</button>
-  </tr>
-  <tr id="row3">
-    <button id="cell7" data-cell="7" disabled>&#128938</button>
-    <button id="cell8" data-cell="8" disabled>&#128938</button>
-    <button id="cell9" data-cell="9" disabled>&#128938</button>
-  </tr>
-</table>
 
 </body>
 </html>
